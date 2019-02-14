@@ -31,7 +31,9 @@ class AppKernel extends Kernel
             new Avanzu\AdminThemeBundle\AvanzuAdminThemeBundle(),
             new SettingBundle\SettingBundle(),
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
-            new Nelmio\ApiDocBundle\NelmioApiDocBundle()
+            new Nelmio\ApiDocBundle\NelmioApiDocBundle(),
+            new AdBundle\AdBundle(),
+            new ClaimBundle\ClaimBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

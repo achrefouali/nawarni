@@ -1,0 +1,7 @@
+services:
+#    ad.example:
+#        class: AdBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]
+    application_ad_service:
+        class:   AdBundle\Services\AdService
+        arguments: ['@doctrine.orm.entity_manager']

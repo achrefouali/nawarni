@@ -29,7 +29,10 @@ class SidebarListener
         $earg      = array();
         $rootItems = array(
             $dash = new MenuItemModel('dashboard', 'Tableau de bord', 'homepage', $earg, 'fa fa-dashboard'),
+            $ad = new MenuItemModel('ad', 'Gestion des annonces', 'application_ad_list', $earg, 'fa fa-paper-plane'),
+            $claim = new MenuItemModel('claim', 'Gestion des réclamation', 'application_ad_list', $earg, 'fa fa-bolt'),
             $settings = new MenuItemModel('setting', 'Paramétrage', '', $earg, 'fa  fa-cog'),
+
 //            $forms = new MenuItemModel('setting', 'Paramétrage', 'avanzu_admin_form_demo', $earg, 'fa fa-edit'),
 //            $widgets = new MenuItemModel('widgets', 'Widgets', 'avanzu_admin_demo', $earg, 'fa fa-th', 'new'),
 //            $ui = new MenuItemModel('ui-elements', 'UI Elements', '', $earg, 'fa fa-laptop')

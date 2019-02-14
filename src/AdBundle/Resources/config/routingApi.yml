@@ -1,0 +1,3 @@
+application_adCategory_create_api:
+    resource: "@AdBundle/Resources/config/routing/Api/routing.yml"
+    prefix:   /ad

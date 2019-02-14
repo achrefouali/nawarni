@@ -27,7 +27,7 @@ class FilterType extends AbstractType {
 
 
             ->add('title', TextType::class, array('translation_domain' => 'ApplicationSettingBundle',
-                                                  'label' => 'Intitulé de la catégorie',
+                                                  'label' => "Intitulé de la catégorie ",
                                                   'required' => false,
                                                   'attr' => array('class' => 'form-control')
             ));

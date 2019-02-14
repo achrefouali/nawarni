@@ -1,0 +1,4 @@
+api_ad_create:
+    path:     /add.{_format}
+    defaults: { _controller: AdBundle:Api\Ad:create , _format:'json'}
+    methods:  [GET]

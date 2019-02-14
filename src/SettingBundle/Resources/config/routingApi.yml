@@ -4,3 +4,6 @@ NelmioApiDocBundle:
 application_setting_api:
     resource: "@SettingBundle/Resources/config/routing/api/routing.yml"
     prefix:   /setting
+application_ad_api:
+    resource: "@AdBundle/Resources/config/routingApi.yml"
+    prefix:   /ad

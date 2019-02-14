@@ -1,3 +1,11 @@
+claim:
+    resource: "@ClaimBundle/Resources/config/routing.yml"
+    prefix:   /claim
+
+ad:
+    resource: "@AdBundle/Resources/config/routing.yml"
+    prefix:   /ad
+
 setting:
     resource: "@SettingBundle/Resources/config/routing.yml"
     prefix:   /setting
