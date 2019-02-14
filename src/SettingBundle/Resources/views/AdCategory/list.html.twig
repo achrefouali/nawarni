@@ -1,0 +1,101 @@
+{% extends '::Layout/base-layout.html.twig' %}
+
+
+{% block page_title %}Gestion des catégories d'annonce  {% endblock %}
+{% block page_subtitle %} Liste des catégories {% endblock %}
+{% block page_content %}
+    <div class="box box-primary" style="padding: 14px !important;">
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h4>Recherche</h4>
+                        <hr>
+                        <div class="ibox-tools  pull-right">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+
+                        </div>
+                    </div>
+                    <div class="ibox-content" style="    padding: 20px !important;
+">
+                        {% import '::macros/base_search_macro.html.twig' as  search_macro %}
+                        {{ search_macro.search(filterForm,['title'],'application_setting_adCategory_filter' ) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="box box-primary" style="padding: 14px !important;">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class= "ibox-title">
+                        <h4>Liste des catégories des réclamations</h4>
+                        <hr>
+                        <div class="ibox-tools pull-right">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content auf-footer" style="padding: 22px !important;">
+                        <div class="row">
+                            <div class="col-lg-12 ">
+                                <a  href="{{path('application_setting_adCategory_create')}}" class=" btn-listing btn btn-primary pull-right" >
+                                    <i class="fa fa-plus padding-fa-buttom"></i>
+                                    Ajouter d'une catégorie</a>
+                            </div>
+                        </div>
+                        {% import 'SettingBundle:AdCategory:macros/base_list_macro.html.twig' as  list_macro  %}
+                        {% set attributes_array = {
+                            'title':   {'label': 'Intitulé de la catégorie','sort' : 'asc', 'type' : 'default'},
+                            'description':   {'label': 'Description ','sort' : 'asc', 'type' : 'default'},
+                        }
+                        %}
+                        {{ list_macro.list(adCategory, attributes_array,{'edit':'application_setting_adCategory_edit','enable':'application_setting_adCategory_enable','disable':'application_setting_adCategory_disable','delete':'application_setting_adCategory_delete'},{},'SettingBundle','SettingBundle', 'AdCategory/action', total_adCategory )}}
+
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    </div>
+
+
+
+
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $( document ).ready(function() {
+            $('.collapse-link').click(function () {
+
+                var ibox = $(this).closest('div.ibox');
+                var button = $(this).find('i');
+                var content = ibox.find('div.ibox-content');
+                content.slideToggle(200);
+                button.toggleClass('fa-chevron-up').toggleClass('fa-chevron-down');
+                ibox.toggleClass('').toggleClass('border-bottom');
+                setTimeout(function () {
+                    ibox.resize();
+                    ibox.find('[id^=map-]').resize();
+                }, 50);
+            });
+
+        });
+    </script>
+{% endblock %}
+
+
+
+
+

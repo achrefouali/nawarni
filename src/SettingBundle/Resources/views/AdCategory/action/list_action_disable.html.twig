@@ -1,0 +1,13 @@
+{#{% if is_granted('desactivate',obj) %}#}
+{% if obj.enable == true  %}  <a class="btn btn-raduis btn-sm btn-white delete-object btn-listing"
+                                 title="désactiver"
+                                 data-toggle="tooltip"
+                                 rel="tooltip"
+                                 href="javascript:void(0)"
+                                 data-url="{{path(key, {'id': obj.id})}}"
+                                 data-originalconfirm="Etes-vous sur de vouloir désactiver la catégorie : {{ obj }}?"
+
+>
+    <i class="fa fa-lg fa-lock"></i>
+</a>
+{% endif %}

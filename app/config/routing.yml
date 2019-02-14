@@ -1,3 +1,12 @@
+setting:
+    resource: "@SettingBundle/Resources/config/routing.yml"
+    prefix:   /setting
+
+
+setting_api:
+    resource: "@SettingBundle/Resources/config/routingApi.yml"
+    prefix:   /api
+
 salex_user:
     resource: "@SalexUserBundle/Controller/"
     type:     annotation

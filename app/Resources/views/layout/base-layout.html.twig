@@ -18,6 +18,9 @@
     {% block stylesheets %}
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
         <link rel="stylesheet" href="{{ asset('bundles/avanzuadmintheme/static/'~ app.environment ~'/styles/admin-lte-all.css') }}" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+
     {% endblock %}
 
 
@@ -54,7 +57,7 @@ desired effect
 |---------------------------------------------------------|
 -->
 
-<body class="{{ admin_skin|default('skin-blue')}} fixed sidebar-mini">
+<body class="{{ admin_skin|default('skin-purple')}} fixed  sidebar-mini">
 <div class="wrapper">
 
     {% block avanzu_admin_header %}
@@ -67,7 +70,7 @@ desired effect
                         <img src="{{ asset('bundles/app/images/logo-mini.jpg') }}" alt="">
                     </span>
                     <span class="logo-lg">
-                        {{ block('title') }}
+                        N@warni
                     </span>
                 </a>
             {% endblock %}
@@ -175,6 +178,50 @@ desired effect
 
         <!-- Main content -->
         <section class="content">
+
+
+            <div id="myModal" class="modal fade">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title">Confirmation</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p> Sure??? message </p>
+                        </div>
+                        <div class="modal-footer">
+                            <a type="button" class="btn btn-success btn-width" style="    color: #fff;
+    background-color: #a80533;
+    border-color: #a80533;" id="dataConfirmOK"><i
+                                        class="fa fa-check"></i>Valider</a>
+                            <button type="button" class="btn btn-default btn-btm" data-dismiss="modal"><i
+                                        class="fa fa-times"></i>Annuler
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="myModal" class="modal fade">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title">Confirmation</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p> Sure??? message </p>
+                        </div>
+                        <div class="modal-footer">
+                            <a type="button" class="btn btn-success btn-width" id="dataConfirmOK"><i
+                                        class="fa fa-check"></i>Valider</a>
+                            <button type="button" class="btn btn-default btn-btm" data-dismiss="modal"><i
+                                        class="fa fa-times"></i>Annuler
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
             {% block page_content %}{% endblock %}
         </section>
         <!-- /.content -->
@@ -194,7 +241,48 @@ desired effect
 {% block javascripts %}
 
     <script src="{{ asset('bundles/avanzuadmintheme/static/'~app.environment~'/scripts/admin-lte-all.js') }}"></script>
+    <script>
+        $(document).ready(function(){
+            $('[data-toggle="tooltip"]').tooltip();
 
+            $("#dataConfirmOK").on("click", function () {
+                $(this).css("pointer-events", "none");
+            });
+
+
+
+
+            $(".delete-object").click(function () {
+                $('#myModal h4').html("Confirmation");
+                $('#myModal a,#myModal button').show();
+                $('#myModal #dataConfirmOK').attr('href', $(this).attr('data-url'));
+                $('#myModal .modal-body p').html($(this).data('originalconfirm'));
+                var form = $('<form />').attr({
+                    method: 'POST',
+                    id: 'delete-form',
+                    action: $(this).attr('data-url'),
+                    style: 'visibility: hidden'
+                });
+                // Add csrf protection token
+                $('<input />').attr({
+                    type: 'hidden',
+                    name: '_csrf_token',
+                    value: $(this).data('csrf-token')
+                }).appendTo(form);
+                $('#myModal').find('.modal-body').append(form);
+                $('#myModal #dataConfirmOK').attr('data-csrf-token', $(this).attr('data-csrf-token'));
+                $("#myModal").modal('show');
+
+            });
+            $('#myModal #dataConfirmOK').on('click', function (e) {
+                if ($(this).data('csrf-token')) {
+                    e.preventDefault();
+                    // Send action
+                    $('#delete-form').submit();
+                }
+            })
+        });
+    </script>
 {% endblock %}
 
 {# ----------------------------------------------------------------------------------------------- JAVASCRIPTS_INLINE #}

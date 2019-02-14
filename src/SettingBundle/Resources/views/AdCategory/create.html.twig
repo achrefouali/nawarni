@@ -1,0 +1,56 @@
+{% extends '::Layout/base-layout.html.twig' %}
+
+
+{% block page_title %} Paramétrage {% endblock %}
+{% if object.id is null %}
+    {% set value ="Création de catégorie de  l'annonce" %}
+{% else %}
+    {% set value ="Edition de catégorie de  l'annonce" %}
+{% endif %}
+ {% block page_subtitle %} {{  value }}{% endblock %}
+{% block page_content %}
+    {% if object.id is null %}
+        {% set formAction = path('application_setting_adCategory_create') %}
+    {% else %}
+        {% set formAction = path('application_setting_adCategory_edit',{'id':object.id}) %}
+    {% endif %}
+
+
+    {% set fieldsetValues = {
+        0:{
+            "libelle":"Informations liées à la catégorie" ,
+            "class":"show",
+            "value": {
+                'title': 'col-md-12',
+                'description': 'col-md-12',
+            }
+        },
+    } %}
+
+    {% import 'SettingBundle:AdCategory:macros/base_form_macro.html.twig' as  form_macro %}
+    {{ form_macro.form(object,form,fieldsetValues,'application_setting_adCategory_list') }}
+
+{% endblock page_content %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $( document ).ready(function() {
+            $('.collapse-link').click(function () {
+
+                var ibox = $(this).closest('div.ibox');
+                var button = $(this).find('i');
+                var content = ibox.find('div.ibox-content');
+                content.slideToggle(200);
+                button.toggleClass('fa-chevron-up').toggleClass('fa-chevron-down');
+                ibox.toggleClass('').toggleClass('border-bottom');
+                setTimeout(function () {
+                    ibox.resize();
+                    ibox.find('[id^=map-]').resize();
+                }, 50);
+            });
+
+        });
+    </script>
+{% endblock %}

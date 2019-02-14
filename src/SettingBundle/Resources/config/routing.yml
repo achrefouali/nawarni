@@ -1,0 +1,6 @@
+application_setting_adCategory:
+    resource: "@SettingBundle/Resources/config/routing/adCategory.yml"
+    prefix:   /adCategory
+application_setting_claim:
+    resource: "@SettingBundle/Resources/config/routing/claim.yml"
+    prefix:   /claimCategory

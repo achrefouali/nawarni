@@ -1,0 +1,23 @@
+#Claim
+application_setting_claim_create:
+    path:     /create
+    defaults: { _controller: SettingBundle:ClaimCategory:create }
+application_setting_claim_list:
+    path:     /list
+    defaults: { _controller: SettingBundle:ClaimCategory:list}
+application_setting_claim_edit:
+    path:     /{id}/edit
+    defaults: { _controller: SettingBundle:ClaimCategory:edit}
+#
+application_setting_claim_filter:
+    path:     /filter
+    defaults: { _controller: SettingBundle:ClaimCategory:filter}
+application_setting_claim_disable:
+    path:     /{id}/disable
+    defaults: { _controller: SettingBundle:ClaimCategory:disable }
+application_setting_claim_enable:
+    path:     /{id}/enable
+    defaults: { _controller: SettingBundle:ClaimCategory:enable }
+application_setting_claim_delete:
+    path:     /{id}/delete
+    defaults: { _controller: SettingBundle:ClaimCategory:delete }

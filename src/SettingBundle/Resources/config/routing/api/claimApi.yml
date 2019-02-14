@@ -1,0 +1,4 @@
+api_claim_all:
+    path:     /all.{_format}
+    defaults: { _controller: SettingBundle:Api\Setting:getClaimAll , _format:'json'}
+    methods:  [GET]

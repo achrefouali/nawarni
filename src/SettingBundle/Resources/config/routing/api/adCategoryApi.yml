@@ -1,0 +1,4 @@
+api_adCategory_all:
+    path:     /all.{_format}
+    defaults: { _controller: SettingBundle:Api\Setting:getAdAll , _format:'json'}
+    methods:  [GET]
