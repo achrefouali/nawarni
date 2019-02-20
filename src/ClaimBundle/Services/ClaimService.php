@@ -2,19 +2,21 @@
 /**
  * Created by PhpStorm.
  * User: acf
- * Date: 14/02/2019
- * Time: 16:26
+ * Date: 20/02/2019
+ * Time: 11:34
  */
 
-namespace AdBundle\Services;
+namespace ClaimBundle\Services;
 
-use AdBundle\Entity\Ad;
+
+use ClaimBundle\Entity\Claim;
 use Doctrine\ORM\EntityManager;
-use SettingBundle\Entity\AdCategory;
+use SettingBundle\Entity\ClaimCategory;
 use Symfony\Component\Filesystem\Filesystem;
 
-class AdService
+class ClaimService
 {
+
     private $em;
     /**
      * Construct
@@ -28,38 +30,40 @@ class AdService
 
     public function createAd($variable){
         extract($variable);
-        $ad = new Ad();
-        $ad->setTitle($title);
-        $ad->setDescription($description);
+        $claim = new Claim();
+        $claim->setTitle($title);
+        $claim->setDescription($description);
+
         $date = new \DateTime($date);
-        $ad->setDate($date);
-        $ad->setAddress($address);
-        $category = $this->em->getRepository(AdCategory::class)->find($adCategory);
-        $ad->setAdCategory($category);
-        $this->em->persist($ad);
+
+        $claim->setDate($date);
+        $claim->setAddress($address);
+        $category = $this->em->getRepository(ClaimCategory::class)->find($claimCategory);
+        $claim->setClaimCategory($category);
+        $this->em->persist($claim);
         $this->em->flush();
-        $ad->setAnnonceFile($this->base64_to_jpeg($affiche, $ad));
-        $this->em->persist($ad);
+        $claim->setClaimFile($this->base64_to_jpeg($affiche, $claim));
+        $this->em->persist($claim);
         $this->em->flush();
         return true ;
     }
 
 
-    public function editAd($ad){
+    public function editClaim($ad){
         $this->em->persist($ad);
         $this->em->flush();
         return $ad ;
-     }
-    public function getAd($filters,$paginator=false){
+    }
+    public function getClaim($filters,$paginator=false){
 
-        return $this->em->getRepository('AdBundle:Ad')
+        return $this->em->getRepository('ClaimBundle:Claim')
             ->findRecordsByFilter(
                 $filters,
                 $paginator
             );
     }
 
-    function base64_to_jpeg($base64_string, $ad)
+    function base64_to_jpeg($base64_string, $claim)
     {
         $data = explode(',', $base64_string);
         $dataExtension = explode(';', $data[0]);
@@ -68,9 +72,9 @@ class AdService
         $extension = $dataExtension3[1];
         // open the output file for writing
         $fileSystem = new Filesystem();
-        $filename = $ad->getId() . "." ."picture." . $extension;
-        $fileSystem->touch($ad->getUploadRootDir() . "/" .$filename);
-        $file = $ad->getUploadRootDir() . "/".$filename;
+        $filename = $claim->getId() . "." ."picture." . $extension;
+        $fileSystem->touch($claim->getUploadRootDir() . "/" .$filename);
+        $file = $claim->getUploadRootDir() . "/".$filename;
         $ifp = fopen($file, 'wb');
         fwrite($ifp, base64_decode($data[1]));
         // clean up the file resource
@@ -81,18 +85,18 @@ class AdService
     }
 
 
-    public function disable($ad){
-        $ad->setPublic(false);
+    public function disable($claim){
+        $claim->setPublic(false);
         $this->em->flush();
-        return $ad ;
+        return $claim ;
     }
-    public function enable($ad){
-        $ad->setPublic(true);
+    public function enable($claim){
+        $claim->setPublic(true);
         $this->em->flush();
-        return $ad ;
+        return $claim ;
     }
-    public function delete($ad){
-        $this->em->remove($ad);
+    public function delete($claim){
+        $this->em->remove($claim);
         $this->em->flush();
         return true;
 
@@ -101,10 +105,11 @@ class AdService
     }
 
 
-    public function getAdApi($variable){
-        return $this->em->getRepository('AdBundle:Ad')
+    public function getClaimApi($variable){
+        return $this->em->getRepository('ClaimBundle:Claim')
             ->findRecords(
                 $variable
             );
-}
+    }
+
 }

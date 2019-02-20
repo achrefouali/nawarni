@@ -1,0 +1,3 @@
+application_c_create_api:
+    resource: "@ClaimBundle/Resources/config/routing/Api/routing.yml"
+    prefix:   /claim

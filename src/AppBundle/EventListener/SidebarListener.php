@@ -30,12 +30,13 @@ class SidebarListener
         $rootItems = array(
             $dash = new MenuItemModel('dashboard', 'Tableau de bord', 'homepage', $earg, 'fa fa-dashboard'),
             $ad = new MenuItemModel('ad', 'Gestion des annonces', 'application_ad_list', $earg, 'fa fa-paper-plane'),
-            $claim = new MenuItemModel('claim', 'Gestion des réclamation', 'application_ad_list', $earg, 'fa fa-bolt'),
+            $claim = new MenuItemModel('claim', 'Gestion des réclamation', 'application_claim_list', $earg, 'fa fa-bolt'),
             $settings = new MenuItemModel('setting', 'Paramétrage', '', $earg, 'fa  fa-cog'),
         );
 
         $settings->addChild(new MenuItemModel('adCategory', 'Catégories des annonces', 'application_setting_adCategory_list', $earg,'fa fa-bullhorn'));
-        $settings->addChild(new MenuItemModel('adCategory', 'Catégories des réclamations', 'application_setting_claim_list', $earg,'fa  fa-exclamation-triangle'));
+        $settings->addChild(new MenuItemModel('claimCategory', 'Catégories des réclamations', 'application_setting_claim_list', $earg,'fa  fa-exclamation-triangle'));
+
         return $this->activateByRoute($request->get('_route'), $rootItems);
 
     }

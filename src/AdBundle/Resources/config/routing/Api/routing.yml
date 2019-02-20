@@ -2,3 +2,7 @@ api_ad_create:
     path:     /add.{_format}
     defaults: { _controller: AdBundle:Api\Ad:create , _format:'json'}
     methods:  [GET]
+api_ad_all:
+    path:     /all.{_format}
+    defaults: { _controller: AdBundle:Api\Ad:getAll , _format:'json'}
+    methods:  [GET]

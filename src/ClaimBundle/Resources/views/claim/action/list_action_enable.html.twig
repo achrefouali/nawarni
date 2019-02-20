@@ -1,0 +1,13 @@
+{% if obj.public == false %}
+    <a class="btn btn-raduis btn-sm btn-white delete-object btn-listing"
+    title="activer"
+    data-toggle="tooltip"
+    rel="tooltip"
+    href="javascript:void(0)"
+    data-url="{{path(key, {'id': obj.id})}}"
+    data-originalconfirm="Etes-vous sur de vouloir activer la réclamation  : {{ obj }} ?"
+
+    >
+    <i class="fa fa-lg fa-unlock"></i>
+    </a>
+{% endif %}

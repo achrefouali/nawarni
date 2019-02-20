@@ -62,7 +62,7 @@ class SettingService
 }
      public function getClaim($filters,$paginator=false){
 
-         return $this->em->getRepository('SettingBundle:claimCategory')
+         return $this->em->getRepository('SettingBundle:ClaimCategory')
              ->findRecordsByFilter(
                  $filters,
                  $paginator
@@ -104,7 +104,7 @@ class SettingService
 
 
     public function getClaimCategoriesApi(){
-        return $this->em->getRepository('SettingBundle:claimCategory')
+        return $this->em->getRepository('SettingBundle:ClaimCategory')
             ->findRecords(
 
             );

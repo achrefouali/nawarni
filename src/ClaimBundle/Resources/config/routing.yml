@@ -1,3 +1,22 @@
-claim_homepage:
-    path:     /
-    defaults: { _controller: ClaimBundle:Default:index }
+#claim_homepage:
+#    path:     /
+#    defaults: { _controller: ClaimBundle:Default:index }
+application_claim_list:
+    path:     /list
+    defaults: { _controller: ClaimBundle:Claim:list}
+application_claim_edit:
+    path:     /{id}/edit
+    defaults: { _controller:  ClaimBundle:Claim:edit}
+#
+application_claim_filter:
+    path:     /filter
+    defaults: { _controller: ClaimBundle:Claim:filter}
+application_claim_disable:
+    path:     /{id}/disable
+    defaults: { _controller: ClaimBundle:Claim:disable }
+application_claim_enable:
+    path:     /{id}/enable
+    defaults: { _controller: ClaimBundle:Claim:enable }
+application_claim_delete:
+    path:     /{id}/delete
+    defaults: { _controller: ClaimBundle:Claim:delete }

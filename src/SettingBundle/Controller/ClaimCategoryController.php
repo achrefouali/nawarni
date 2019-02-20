@@ -9,7 +9,7 @@
 namespace SettingBundle\Controller;
 
 
-use SettingBundle\Entity\claimCategory;
+use SettingBundle\Entity\ClaimCategory;
 use SettingBundle\Form\claimCategoryType;
 use SettingBundle\Form\FilterClaimType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -129,7 +129,7 @@ class ClaimCategoryController extends Controller
     public function createAction(Request $request)
     {
 
-        $claim = new claimCategory();
+        $claim = new ClaimCategory();
         $form = $this->createForm(claimCategoryType::class, $claim);
         $form->handleRequest($request);
         if ($form->isValid()) {
@@ -145,7 +145,7 @@ class ClaimCategoryController extends Controller
                 'object' => $claim));
     }
     public function editAction(Request $request ,$id){
-        $ad = $this->getDoctrine()->getRepository(claimCategory::class)->find($id);
+        $ad = $this->getDoctrine()->getRepository(ClaimCategory::class)->find($id);
         if(empty($ad)){
             throw new \Exception('Ad Category not found');
         }
@@ -172,7 +172,7 @@ class ClaimCategoryController extends Controller
      */
     public function disableAction($id, Request $request){
 
-        $ad = $this->getDoctrine()->getRepository(claimCategory::class)->find($id);
+        $ad = $this->getDoctrine()->getRepository(ClaimCategory::class)->find($id);
 
         if(!is_object($ad)){
             throw new NotFoundHttpException( 'Ad Category not Found');
@@ -194,7 +194,7 @@ class ClaimCategoryController extends Controller
      */
     public function enableAction($id, Request $request){
 
-        $ad = $this->getDoctrine()->getRepository(claimCategory::class)->find($id);
+        $ad = $this->getDoctrine()->getRepository(ClaimCategory::class)->find($id);
         if(!is_object($ad)){
             throw new NotFoundHttpException( 'Ad Category Not found ');
         }
@@ -208,7 +208,7 @@ class ClaimCategoryController extends Controller
     }
 
     public function deleteAction($id,Request $request){
-        $ad = $this->getDoctrine()->getRepository(claimCategory::class)->find($id);
+        $ad = $this->getDoctrine()->getRepository(ClaimCategory::class)->find($id);
         if(!is_object($ad)){
             throw new NotFoundHttpException( 'Ad Category Not found ');
         }

@@ -1,0 +1,8 @@
+api_claim_create:
+    path:     /add.{_format}
+    defaults: { _controller: ClaimBundle:Api\Claim:create , _format:'json'}
+    methods:  [GET]
+api_claim_all:
+    path:     /all.{_format}
+    defaults: { _controller: ClaimBundle:Api\Claim:getAll , _format:'json'}
+    methods:  [GET]

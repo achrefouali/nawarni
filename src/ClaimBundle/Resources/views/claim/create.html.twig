@@ -1,0 +1,81 @@
+{% extends '::Layout/base-layout.html.twig' %}
+
+
+{% block page_title %} Gestion des réclamations {% endblock %}
+{% if object.id is null %}
+    {% set value ="Création  de  la réclamation" %}
+{% else %}
+    {% set value ="Edition de la réclamation   " %}
+{% endif %}
+ {% block page_subtitle %} {{  value }}{% endblock %}
+{% block page_content %}
+
+        {% set formAction = path('application_claim_edit',{'id':object.id}) %}
+
+
+
+    {% set fieldsetValues = {
+        0:{
+            "libelle":"photo  de la réclamation " ,
+            "class":"show",
+            "value": {
+                'claimFile': 'col-md-12 inputfile ',
+            }
+        },
+        1:{
+            "libelle":"Informations liées à la réclamation" ,
+            "class":"show",
+            "value": {
+                'title': 'col-md-6',
+                'date': 'col-md-6 ',
+                'claimCategory': 'col-md-6',
+                'address': 'col-md-6',
+                'description': 'col-md-6',
+                'public': 'col-md-6',
+
+            }
+        },
+    } %}
+
+    {% import 'ClaimBundle:claim:macros/base_form_macro.html.twig' as  form_macro %}
+    {{ form_macro.form(object,form,fieldsetValues,'application_claim_list') }}
+
+{% endblock page_content %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $( document ).ready(function() {
+             $('.order').parent().css(
+                 "order", "2");
+
+                $('#claimbundle_claim_date').get(0).type = 'date';
+
+
+            $('.collapse-link').click(function () {
+
+                var ibox = $(this).closest('div.ibox');
+                var button = $(this).find('i');
+                var content = ibox.find('div.ibox-content');
+                content.slideToggle(200);
+                button.toggleClass('fa-chevron-up').toggleClass('fa-chevron-down');
+                ibox.toggleClass('').toggleClass('border-bottom');
+                setTimeout(function () {
+                    ibox.resize();
+                    ibox.find('[id^=map-]').resize();
+                }, 50);
+            });
+                $('#claimbundle_claim_claimFile').on("change", function(){
+                    var filename = $(this).val().match(/[^\\/]*$/)[0]; // remove C:\fakename
+                    $('.filenameInput').text(filename)
+                });
+
+        }
+
+
+        );
+
+
+    </script>
+{% endblock %}

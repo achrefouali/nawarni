@@ -1,0 +1,14 @@
+{% if obj.public == false  %}
+<a
+    class="btn  btn-raduis btn-sm btn-white delete-object btn-listing"
+    title="{{ 'delete'|trans({},'ApplicationCoreBundle') }}"
+    data-toggle="myModal"
+    rel="myModal"
+    href="javascript:void(0)"
+    data-url="{{path(key, {'id': obj.id})}}"
+    data-originalconfirm="Etes-vous sur de vouloir supprimer la réclamation : {{ obj }} ?"
+
+>
+    <i class="fa fa-trash"></i>
+    </a>
+{% endif %}

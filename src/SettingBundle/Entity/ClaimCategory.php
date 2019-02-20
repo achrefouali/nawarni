@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="claim_category")
  * @ORM\Entity(repositoryClass="SettingBundle\Repository\claimCategoryRepository")
  */
-class claimCategory
+class ClaimCategory
 {
     /**
      * @var int

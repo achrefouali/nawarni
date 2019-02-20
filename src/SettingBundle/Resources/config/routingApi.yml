@@ -7,3 +7,6 @@ application_setting_api:
 application_ad_api:
     resource: "@AdBundle/Resources/config/routingApi.yml"
     prefix:   /ad
+application_claim_api:
+    resource: "@ClaimBundle/Resources/config/routingApi.yml"
+    prefix:   /claim

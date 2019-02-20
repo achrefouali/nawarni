@@ -49,6 +49,8 @@ class claimCategoryRepository extends \Doctrine\ORM\EntityRepository
 
         $queryBuilder = $this->createQueryBuilder('c');
         $queryBuilder->select('c');
+        $queryBuilder->andWhere('c.enable = :enabled');
+        $queryBuilder->setParameter('enabled',1);
         $result=[];
         foreach($queryBuilder->getQuery()->getResult() as $item){
             $result[$item->getId()]=['title'=>$item->getTitle(),

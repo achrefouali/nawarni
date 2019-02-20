@@ -3,4 +3,4 @@ application_adCategory_api:
     prefix:   /adCategory
 application_claim_api:
     resource: "@SettingBundle/Resources/config/routing/api/claimApi.yml"
-    prefix:   /claim
+    prefix:   /claimCategory

@@ -2,35 +2,29 @@
 /**
  * Created by PhpStorm.
  * User: acf
- * Date: 14/02/2019
- * Time: 16:11
+ * Date: 20/02/2019
+ * Time: 11:33
  */
 
-namespace AdBundle\Controller\Api;
+namespace ClaimBundle\Controller\Api;
 
 
 use FOS\RestBundle\Controller\FOSRestController;
-use FOS\RestBundle\Request\ParamFetcherInterface;
-use FOS\RestBundle\Controller\Annotations;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class AdController extends  FOSRestController
+class ClaimController extends  FOSRestController
 {
-
-
     /**
      * @return object
      */
-    private function getAdService(){
-        return $this->get('application_ad_service');
+    private function getClaimService(){
+        return $this->get('application_claim_service');
     }
     /**
      *
-     * Lister les utilisateurs.
-
      * @ApiDoc(
      *   resource = true,
      *   statusCodes = {
@@ -41,9 +35,9 @@ class AdController extends  FOSRestController
     {"name"="description","dataType"="text","required"=true,"description"="description"},
     {"name"="date","dataType"="date","required"=true,"description"="date"},
     {"name"="address","dataType"="string","required"=true,"description"="address"},
-    {"name"="adCategory","dataType"="integer","required"=true,"description"="adCategory"},
-    {"name"="affiche","dataType"="text","required"=true,"description"="affiche"},
-*         }
+    {"name"="claimCategory","dataType"="integer","required"=true,"description"="claimCategory"},
+    {"name"="affiche","dataType"="integer","required"=true,"description"="affiche"},
+     *         }
      * )
      *
      *
@@ -60,7 +54,7 @@ class AdController extends  FOSRestController
             'description'=>$request->query->get('description'),
             'date'=>$request->query->get('date'),
             'address'=>$request->query->get('address'),
-            'adCategory'=>$request->query->get('adCategory'),
+            'claimCategory'=>$request->query->get('claimCategory'),
             'affiche'=>$request->query->get('affiche')
         ];
         foreach($variable as $item=>$value){
@@ -74,17 +68,20 @@ class AdController extends  FOSRestController
                 );
             }
         }
-        $this->getAdService()->createAd($variable);
+        $this->getClaimService()->createAd($variable);
 
         return new JsonResponse(
             [
                 'success' => true,
-                'data' => 'Ad created',
+                'data' => 'Claim created',
             ]
         );
 
 
     }
+
+
+
     /**
      * @ApiDoc(
      *   resource = true,
@@ -106,10 +103,8 @@ class AdController extends  FOSRestController
             'limit'=>$request->query->get('limit'),
         ];
 
-        $ad                    = $this->getAdService()->getAdApi($variable)
+        $claim                    = $this->getClaimService()->getClaimApi($variable)
         ;
-        return new Response(json_encode($ad));
+        return new Response(json_encode($claim));
     }
-
-
 }

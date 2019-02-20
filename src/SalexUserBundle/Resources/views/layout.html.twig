@@ -4,14 +4,20 @@
 
 {% block page_content %}
 	{% block fos_user_content %}
+		<div class="test-login" style=" width: 27%;
+    margin: 0 auto;
+    border: 1px solid transparent;
+    background-color: #fff;
+    margin-top: 2%;">
 		<div class="login-box">
 			<div class="login-logo">
-				<a href="{{ path('homepage') }}"><img src="{{ asset('bundles/app/images/logo.jpg') }}"></a>
+				<a href="{{ path('homepage') }}"><img src="{{ asset('images/logo-nawerni-284-x-332.png') }}"></a>
 			</div><!-- /.login-logo -->
 
 			<div class="login-box-body">
 				{% block user_auth_contents %} {% endblock %}
 			</div> <!-- End of login-box-body -->
 		</div><!-- End of login-box -->
+		</div>
 	{% endblock %}
 {% endblock %}
