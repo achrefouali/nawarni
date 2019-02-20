@@ -9,9 +9,12 @@
 namespace AdBundle\Controller;
 
 
+use AdBundle\Entity\Ad;
+use AdBundle\Form\AdType;
 use AdBundle\Form\FilterType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class AdController extends Controller
 {
@@ -125,81 +128,90 @@ class AdController extends Controller
      * @throws \HttpException
      */
 
-//
-//    public function editAction(Request $request ,$id){
-//        $ad = $this->getDoctrine()->getRepository(AdCategory::class)->find($id);
-//        if(empty($ad)){
-//            throw new \Exception('Ad Category not found');
-//        }
-//        $form = $this->createForm(AdCategoryType::class, $ad);
-//        $form->handleRequest($request);
-//        if ($form->isValid()) {
-//            $this->getSettingService()->addAdCategory($ad);
-////            $this->addFlash('success_action',
-////                $this->get('translator')
-////                    ->trans('setting.trainingType.message.flash.success.create',array('%type%' => $ad),'ApplicationSettingBundle'));
-//
-//            return $this->redirectToRoute('application_setting_adCategory_list');
-//        }
-//        return $this->render('SettingBundle:AdCategory:create.html.twig',
-//            array('form' => $form->createView(),
-//                'object' => $ad));
-//    }
-//
-//
-//    /**
-//     * @param $id
-//     * @param Request $request
-//     * @return \Symfony\Component\HttpFoundation\RedirectResponse
-//     */
-//    public function disableAction($id, Request $request){
-//
-//        $ad = $this->getDoctrine()->getRepository(AdCategory::class)->find($id);
-//
-//        if(!is_object($ad)){
-//            throw new NotFoundHttpException( 'Ad Category not Found');
-//        }
-//        try{
-//
-//            $this->getSettingService()->disable($ad);
-//        }catch(\Exception $e){
-//            return $this->redirectToRoute('application_setting_adCategory_list');
-//        }
-//        return $this->redirectToRoute('application_setting_adCategory_list');
-//
-//    }
-//
-//    /**
-//     * @param $id
-//     * @param Request $request
-//     * @return \Symfony\Component\HttpFoundation\RedirectResponse
-//     */
-//    public function enableAction($id, Request $request){
-//
-//        $ad = $this->getDoctrine()->getRepository(AdCategory::class)->find($id);
-//        if(!is_object($ad)){
-//            throw new NotFoundHttpException( 'Ad Category Not found ');
-//        }
-//        try{
-//            $this->getSettingService()->enable($ad);
-//        }catch(\Exception $e){
-//            return $this->redirectToRoute('application_setting_adCategory_list');
-//        }
-//        return $this->redirectToRoute('application_setting_adCategory_list');
-//
-//    }
-//
-//    public function deleteAction($id,Request $request){
-//        $ad = $this->getDoctrine()->getRepository(AdCategory::class)->find($id);
-//        if(!is_object($ad)){
-//            throw new NotFoundHttpException( 'Ad Category Not found ');
-//        }
-//        try{
-//            $this->getSettingService()->delete($ad);
-//        }catch(\Exception $e){
-//            return $this->redirectToRoute('application_setting_adCategory_list');
-//        }
-//        return $this->redirectToRoute('application_setting_adCategory_list');
-//    }
+
+    public function editAction(Request $request ,$id){
+        $ad = $this->getDoctrine()->getRepository(Ad::class)->find($id);
+        if(empty($ad)){
+            throw new \Exception('Ad Category not found');
+        }
+
+        $form = $this->createForm(AdType::class, $ad);
+        //dump(true);exit;
+        $form->handleRequest($request);
+        if ($request->getMethod() == "POST") {
+            $fileAnnonce = $request->files->get('adbundle_ad')['annonceFile'];
+            if (!is_null($fileAnnonce)) {
+                $ad->setAnnonceFile($fileAnnonce->getClientOriginalName());
+                $ad->setFileAnnonceFile($fileAnnonce);
+                $ad->upload();
+            }
+
+            $this->getAdService()->editAd($ad);
+//            $this->addFlash('success_action',
+//                $this->get('translator')
+//                    ->trans('setting.trainingType.message.flash.success.create',array('%type%' => $ad),'ApplicationSettingBundle'));
+
+            return $this->redirectToRoute('application_ad_list');
+        }
+        return $this->render('AdBundle:ad:create.html.twig',
+            array('form' => $form->createView(),
+                'object' => $ad));
+    }
+
+
+    /**
+     * @param $id
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function disableAction($id, Request $request){
+
+        $ad = $this->getDoctrine()->getRepository(Ad::class)->find($id);
+
+        if(!is_object($ad)){
+            throw new NotFoundHttpException( 'Ad  not Found');
+        }
+        try{
+
+            $this->getAdService()->disable($ad);
+        }catch(\Exception $e){
+            return $this->redirectToRoute('application_ad_list');
+        }
+        return $this->redirectToRoute('application_ad_list');
+
+    }
+
+    /**
+     * @param $id
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function enableAction($id, Request $request){
+
+        $ad = $this->getDoctrine()->getRepository(Ad::class)->find($id);
+        if(!is_object($ad)){
+            throw new NotFoundHttpException( 'Ad Category Not found ');
+        }
+        try{
+            $this->getAdService()->enable($ad);
+        }catch(\Exception $e){
+            return $this->redirectToRoute('application_ad_list');
+        }
+        return $this->redirectToRoute('application_ad_list');
+
+    }
+
+    public function deleteAction($id,Request $request){
+        $ad = $this->getDoctrine()->getRepository(Ad::class)->find($id);
+        if(!is_object($ad)){
+            throw new NotFoundHttpException( 'Ad  Not found ');
+        }
+        try{
+            $this->getAdService()->delete($ad);
+        }catch(\Exception $e){
+            return $this->redirectToRoute('application_ad_list');
+        }
+        return $this->redirectToRoute('application_ad_list');
+    }
 
 }

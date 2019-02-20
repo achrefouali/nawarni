@@ -5,3 +5,8 @@ services:
     application_setting_service:
         class:   SettingBundle\Services\SettingService
         arguments: ['@doctrine.orm.entity_manager']
+    application.twig.extention.checkcol:
+        class: SettingBundle\Twig\Extension\CheckColExtension
+        public: false
+        tags:
+           - { name: twig.extension , alias: application_check_cols }

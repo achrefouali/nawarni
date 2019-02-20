@@ -215,6 +215,108 @@ class Ad
         $this->adCategory = $adCategory;
     }
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="annonceFile", type="string", length=255, nullable=true)
+     */
+    private $annonceFile ;
+
+    private $fileAnnonceFile ;
+
+    private $tempAnnonceFile;
+
+    /**
+     * @return string
+     */
+    public function getAnnonceFile()
+    {
+        return $this->annonceFile;
+    }
+
+    /**
+     * @param string $annonceFile
+     */
+    public function setAnnonceFile($annonceFile)
+    {
+        $this->annonceFile = $annonceFile;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFileAnnonceFile()
+    {
+        return $this->fileAnnonceFile;
+    }
+
+    /**
+     * @param mixed $fileAnnonceFile
+     */
+    public function setFileAnnonceFile($fileAnnonceFile)
+    {
+
+        $this->fileAnnonceFile = $fileAnnonceFile;
+        if (null !== $this->annonceFile && $fileAnnonceFile !== null ) {
+            $this->tempAnnonceFile = $this->annonceFile;
+            $this->annonceFile = null;
+        }
+
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTempAnnonceFile()
+    {
+        return $this->tempAnnonceFile;
+    }
+
+    /**
+     * @param mixed $tempAnnonceFile
+     */
+    public function setTempAnnonceFile($tempAnnonceFile)
+    {
+        $this->tempAnnonceFile = $tempAnnonceFile;
+    }
+
+    public function upload()
+    {
+        // Si jamais il n'y a pas de fichier (champ facultatif)
+
+            // Si on avait un ancien fichier, on le supprime
+            if (null !== $this->tempAnnonceFile) {
+
+                $oldFile = $this->getUploadRootDir() . '/' . $this->id . '.' . $this->tempAnnonceFile;
+                if (file_exists($oldFile)) {
+                    unlink($oldFile);
+                }
+            }
+
+            // On déplace le fichier envoyé dans le répertoire de notre choix
+            $this->fileAnnonceFile->move(
+                $this->getUploadRootDir(), // Le répertoire de destination
+                $this->id . '.' . $this->tempAnnonceFile  // Le nom du fichier à créer, ici « id.extension »
+            );
+            $this->annonceFile =$this->id . '.' . $this->tempAnnonceFile;
+            $this->fileAnnonceFile = null;
+
+    }
+
+
+
+    public function getUploadRootDir( )
+    {
+        return __DIR__ . '/../../../web/' . $this->getUploadDir();
+    }
+    public function getUploadDir()
+    {
+        return 'uploads/ad';
+    }
+    public function __toString()
+    {
+        return $this->getTitle();
+    }
 
 
 }

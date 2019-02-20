@@ -1,3 +1,4 @@
+{% if obj.public == false  %}
 <a
     class="btn  btn-raduis btn-sm btn-white delete-object btn-listing"
     title="{{ 'delete'|trans({},'ApplicationCoreBundle') }}"
@@ -5,8 +6,9 @@
     rel="myModal"
     href="javascript:void(0)"
     data-url="{{path(key, {'id': obj.id})}}"
-    data-originalconfirm="Etes-vous sur de vouloir supprimer la catégorie: {{ obj }} ?"
+    data-originalconfirm="Etes-vous sur de vouloir supprimer l'annonce : {{ obj }} ?"
 
 >
     <i class="fa fa-trash"></i>
     </a>
+{% endif %}

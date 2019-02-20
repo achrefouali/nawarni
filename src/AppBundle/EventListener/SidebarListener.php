@@ -32,16 +32,10 @@ class SidebarListener
             $ad = new MenuItemModel('ad', 'Gestion des annonces', 'application_ad_list', $earg, 'fa fa-paper-plane'),
             $claim = new MenuItemModel('claim', 'Gestion des réclamation', 'application_ad_list', $earg, 'fa fa-bolt'),
             $settings = new MenuItemModel('setting', 'Paramétrage', '', $earg, 'fa  fa-cog'),
-
-//            $forms = new MenuItemModel('setting', 'Paramétrage', 'avanzu_admin_form_demo', $earg, 'fa fa-edit'),
-//            $widgets = new MenuItemModel('widgets', 'Widgets', 'avanzu_admin_demo', $earg, 'fa fa-th', 'new'),
-//            $ui = new MenuItemModel('ui-elements', 'UI Elements', '', $earg, 'fa fa-laptop')
         );
 
         $settings->addChild(new MenuItemModel('adCategory', 'Catégories des annonces', 'application_setting_adCategory_list', $earg,'fa fa-bullhorn'));
         $settings->addChild(new MenuItemModel('adCategory', 'Catégories des réclamations', 'application_setting_claim_list', $earg,'fa  fa-exclamation-triangle'));
-          //  ->addChild($icons = new MenuItemModel('ui-elements-icons', 'Icons', 'avanzu_admin_ui_icon_demo', $earg));
-
         return $this->activateByRoute($request->get('_route'), $rootItems);
 
     }

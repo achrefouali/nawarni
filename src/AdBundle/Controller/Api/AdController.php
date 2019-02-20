@@ -59,6 +59,7 @@ class AdController extends  FOSRestController
             'date'=>$request->query->get('date'),
             'address'=>$request->query->get('address'),
             'adCategory'=>$request->query->get('adCategory'),
+            'affiche'=>$request->query->get('affiche')
         ];
         foreach($variable as $item=>$value){
 

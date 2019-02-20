@@ -1,3 +1,4 @@
+{% if obj.enable == false  %}
 <a
     class="btn  btn-raduis btn-sm btn-white delete-object btn-listing"
     title="{{ 'delete'|trans({},'ApplicationCoreBundle') }}"
@@ -10,3 +11,4 @@
 >
     <i class="fa fa-trash"></i>
     </a>
+{% endif %}

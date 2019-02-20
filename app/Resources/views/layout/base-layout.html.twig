@@ -19,7 +19,13 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
         <link rel="stylesheet" href="{{ asset('bundles/avanzuadmintheme/static/'~ app.environment ~'/styles/admin-lte-all.css') }}" />
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+        {#<link href="{{ asset('css/bootstrap-material-design.css') }}" rel="stylesheet"/>#}
+        {#<link href="{{ asset('css/MaterialAdminLTE.css') }}" rel="stylesheet"/>#}
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/bootstrap-datepicker.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/bootstrap-datepicker.min.css') }}">
+
+        {#<link rel="stylesheet" href="{{ asset('css/select2.min.css') }}">#}
 
     {% endblock %}
 
@@ -28,6 +34,7 @@
 
     {# --------------------------------------------------------------------------------------------- JAVASCRIPTS_HEAD #}
     {%  block javascripts_head %}
+
         <script type="text/javascript" src="{{ asset('bundles/avanzuadmintheme/static/'~app.environment~'/scripts/modernizr.js') }}"></script>
         <!--[if lt IE 9]>
 
@@ -61,9 +68,9 @@ desired effect
 <div class="wrapper">
 
     {% block avanzu_admin_header %}
-        <header class="main-header">
+        <header class="main-header ">
             {% block avanzu_logo %}
-                <a href="{{ path('homepage') }}" class="logo">
+                <a href="{{ path('homepage') }}" class="logo" style="  color: #55595c;!important;">
                     <!-- Add the class icon to your logo image or logo icon to add the margining -->
                     <span class="logo-mini">
                         <!-- mini logo for sidebar mini 50x50 pixels -->
@@ -78,11 +85,11 @@ desired effect
             <nav class="navbar navbar-static-top" role="navigation">
                 <!-- Sidebar toggle button-->
                 <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
-                    <span class="sr-only">Toggle navigation</span>
+                    <span style="  color: #55595c;!important;" class="sr-only">Toggle navigation</span>
                 </a>
                 {% if app.user is not null and is_granted('IS_AUTHENTICATED_FULLY') %}
                     <div class="navbar-custom-menu">
-                        <ul class="nav navbar-nav">
+                        <ul class="nav navbar-nav ">
                             {% block avanzu_navbar %}
                                 {{ render(controller('AvanzuAdminThemeBundle:Navbar:messages')) }}
                                 {{ render(controller('AvanzuAdminThemeBundle:Navbar:notifications')) }}
@@ -241,8 +248,23 @@ desired effect
 {% block javascripts %}
 
     <script src="{{ asset('bundles/avanzuadmintheme/static/'~app.environment~'/scripts/admin-lte-all.js') }}"></script>
+    <script src="{{ asset('js/icheck.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap-datepicker.js') }}"></script>
+    <script src="{{ asset('js/Chart.js') }}"></script>
+    <script src="{{ asset('js/jquery.sparkline.js') }}"></script>
+    <script src="{{ asset('js/jquery.knob.min.js') }}"></script>
+
+
+
     <script>
         $(document).ready(function(){
+
+
+            $('.i-checks').iCheck({
+                checkboxClass: 'icheckbox_square-green',
+                radioClass: 'iradio_square-green',
+            });
+
             $('[data-toggle="tooltip"]').tooltip();
 
             $("#dataConfirmOK").on("click", function () {

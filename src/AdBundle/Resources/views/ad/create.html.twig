@@ -1,34 +1,45 @@
 {% extends '::Layout/base-layout.html.twig' %}
 
 
-{% block page_title %} Paramétrage {% endblock %}
+{% block page_title %} Gestion des annonces {% endblock %}
 {% if object.id is null %}
     {% set value ="Création de catégorie de  la réclamation" %}
 {% else %}
-    {% set value ="Edition de catégorie de  la réclamation" %}
+    {% set value ="Edition de l'annonce   " %}
 {% endif %}
  {% block page_subtitle %} {{  value }}{% endblock %}
 {% block page_content %}
-    {% if object.id is null %}
-        {% set formAction = path('application_setting_claim_create') %}
-    {% else %}
-        {% set formAction = path('application_setting_claim_edit',{'id':object.id}) %}
-    {% endif %}
+
+        {% set formAction = path('application_ad_edit',{'id':object.id}) %}
+
 
 
     {% set fieldsetValues = {
         0:{
-            "libelle":"Informations liées à la catégorie" ,
+            "libelle":"Affiche  de l'annonce" ,
             "class":"show",
             "value": {
-                'title': 'col-md-12',
-                'description': 'col-md-12',
+                'annonceFile': 'col-md-12 inputfile ',
+            }
+        },
+        1:{
+            "libelle":"Informations liées à l'annonce" ,
+            "class":"show",
+            "value": {
+                'title': 'col-md-6',
+
+                'date': 'col-md-6 ',
+                'adCategory': 'col-md-6',
+                'address': 'col-md-6',
+                'description': 'col-md-6',
+                'public': 'col-md-6',
+
             }
         },
     } %}
 
-    {% import 'SettingBundle:claim:macros/base_form_macro.html.twig' as  form_macro %}
-    {{ form_macro.form(object,form,fieldsetValues,'application_setting_claim_list') }}
+    {% import 'AdBundle:ad:macros/base_form_macro.html.twig' as  form_macro %}
+    {{ form_macro.form(object,form,fieldsetValues,'application_ad_list') }}
 
 {% endblock page_content %}
 
@@ -37,6 +48,12 @@
     {{ parent() }}
     <script>
         $( document ).ready(function() {
+             $('.order').parent().css(
+                 "order", "2");
+
+                $('#adbundle_ad_date').get(0).type = 'date';
+
+
             $('.collapse-link').click(function () {
 
                 var ibox = $(this).closest('div.ibox');
@@ -50,7 +67,16 @@
                     ibox.find('[id^=map-]').resize();
                 }, 50);
             });
+                $('#adbundle_ad_annonceFile').on("change", function(){
+                    var filename = $(this).val().match(/[^\\/]*$/)[0]; // remove C:\fakename
+                    $('.filenameInput').text(filename)
+                });
 
-        });
+        }
+
+
+        );
+
+
     </script>
 {% endblock %}

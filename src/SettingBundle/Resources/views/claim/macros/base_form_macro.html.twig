@@ -27,7 +27,7 @@
 
 
 
-                                {% set head_cpt = head_cpt + class  %}
+                                {% set head_cpt = head_cpt + class|check_col   %}
                                 {% if head_cpt == 12 %} {% set head_cpt =0 %} {% endif %}
 
                                 <div class=" {{class}} m-b-xs">

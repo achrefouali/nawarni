@@ -20,6 +20,9 @@ attributes is the array containing attributes that will be displayed
                    aria-describedby="DataTables_Table_0_info" role="grid">
                 <thead>
                 <tr role="row">
+                     <th>
+                         Affiche de l'annonce
+                     </th>
                     {% for attributeName,attributeOptions in attributes %}
                         <th class="sorting" style="white-space: nowrap;">
                                                <span class="sort-addon">
@@ -74,6 +77,18 @@ attributes is the array containing attributes that will be displayed
 
                     {% for obj in objects %}
                         <tr class="gradeA" role="row">
+                            <td style="    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    max-width: 1px;">
+
+
+                                {% if obj.annonceFile !=""  %}
+                                <img src="{{ asset('uploads/ad/'~obj.annonceFile) }}" class="img-thumbnail pull-left" alt="..." width="75%" height="25%" >
+                                {% else %}
+                                    <img src="{{ asset("images/none.png") }}" class="img-thumbnail pull-left" alt="..." width="120px" height="120px" >
+                                    {% endif %}
+                            </td>
                             {% for attr_name,attr_options in attributes %}
                                 <td style="white-space: nowrap;
     text-overflow: ellipsis;

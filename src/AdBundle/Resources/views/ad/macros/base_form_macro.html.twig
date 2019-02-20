@@ -27,17 +27,51 @@
 
 
 
-                                {% set head_cpt = head_cpt + class  %}
+                                {% set head_cpt = head_cpt + class|check_col   %}
                                 {% if head_cpt == 12 %} {% set head_cpt =0 %} {% endif %}
 
                                 <div class=" {{class}} m-b-xs">
 
+                                {% if field =='annonceFile' %}
+                                {% if object.annonceFile is null or object.annonceFile == "" %}
+                                    {{ form_label(attribute(form, field)) }} {{ (attribute(form, field).vars.required==true)?'<span class="required-fields"  title=" Ce champ est obligatoire ">*</span>':'' }}
+
+                                    <div class="">
+                                        {{ form_widget(attribute(form, field),{'attr':{'class':'custom-file-input'}}) }}
+                                        <label for="file" class="  btn btn-listing btn-file " style="position: inherit !important;    border-radius: 9px;">Choisir une image</label>
+                                        <label class="filenameInput" id="filename"></label>
+                                        {{ form_errors(attribute(form, field)) }}
+                                    </div>
+
+                                {% else %}
+                                    {{ form_label(attribute(form, field)) }} {{ (attribute(form, field).vars.required==true)?'<span class="required-fields"  title=" Ce champ est obligatoire ">*</span>':'' }}
+                                    <div class="col-md-12">
+                                        <div class="text-center">
+                                            <img src="{{ asset('uploads/ad/'~object.annonceFile) }}" class="img-thumbnail pull-left" alt="..." width="50%" height="50%" >
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-md-12">
+                                        {{ form_widget(attribute(form, field),{'attr':{'class':'custom-file-input'}}) }}
+                                        <label for="file" class="btn btn-listing btn-file" style="position: inherit !important;    border-radius: 9px;">Choisir une image</label>
+                                        <label class="filenameInput" id="filename"> {{ object.annonceFile }}</label>
+                                        {{ form_errors(attribute(form, field)) }}
+                                    </div>
+
+                                        {#<a target="_blank" alt="passport" href="{{ asset('uploads/ad/'~object.annonceFile) }}"#}
+                                           {#style="padding-left:15px;width:250px;display: flex;"><i class="fa fa-lg fa-download"#}
+
+
+                                {% endif %}
+
+                            {% else %}
                                     <div class="form-group">
                                         {#<div class="input-group">#}
                                         {{ form_label(attribute(form, field)) }}  {{ (attribute(form, field).vars.required==true)?'<span class="required-fields"  title=" Ce champ est obligatoire ">*</span>':'' }}
                                         {{ form_widget(attribute(form, field)) }}
                                         {{ form_errors(attribute(form, field)) }}
-                                    </div>
+                                    </div>{% endif %}
                                     {#{% endif %}#}
                                 </div>
 

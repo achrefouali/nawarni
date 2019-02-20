@@ -6,19 +6,19 @@
 application_ad_list:
     path:     /list
     defaults: { _controller: AdBundle:Ad:list}
-#application_setting_adCategory_edit:
-#    path:     /{id}/edit
-#    defaults: { _controller: SettingBundle:AdCategory:edit}
-##
+application_ad_edit:
+    path:     /{id}/edit
+    defaults: { _controller:  AdBundle:Ad:edit}
+#
 application_ad_filter:
     path:     /filter
     defaults: { _controller: AdBundle:Ad:filter}
-#application_setting_adCategory_disable:
-#    path:     /{id}/disable
-#    defaults: { _controller: SettingBundle:AdCategory:disable }
-#application_setting_adCategory_enable:
-#    path:     /{id}/enable
-#    defaults: { _controller: SettingBundle:AdCategory:enable }
-#application_setting_adCategory_delete:
-#    path:     /{id}/delete
-#    defaults: { _controller: SettingBundle:AdCategory:delete }
+application_ad_disable:
+    path:     /{id}/disable
+    defaults: { _controller: AdBundle:Ad:disable }
+application_ad_enable:
+    path:     /{id}/enable
+    defaults: { _controller: AdBundle:Ad:enable }
+application_ad_delete:
+    path:     /{id}/delete
+    defaults: { _controller: AdBundle:Ad:delete }

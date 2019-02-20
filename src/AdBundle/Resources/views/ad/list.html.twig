@@ -52,10 +52,12 @@
                         {% import 'AdBundle:ad:macros/base_list_macro.html.twig' as  list_macro  %}
                         {% set attributes_array = {
                             'title':   {'label': "Intitulé de l'annonce ",'sort' : 'asc', 'type' : 'default'},
+                            'adCategory':   {'label': "Catégorie de l'annonce  ",'sort' : 'asc', 'type' : 'default'},
                             'description':   {'label': 'Description ','sort' : 'asc', 'type' : 'default'},
+
                         }
                         %}
-                        {{ list_macro.list(ad, attributes_array,{},{},'AdBundle','AdBundle', 'ad/action', total_ad )}}
+                        {{ list_macro.list(ad, attributes_array,{'edit':'application_ad_edit','enable':'application_ad_enable','disable':'application_ad_disable','delete':'application_ad_delete'},{},'AdBundle','AdBundle', 'ad/action', total_ad )}}
 
 
                     </div>
