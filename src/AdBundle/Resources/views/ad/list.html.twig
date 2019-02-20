@@ -22,7 +22,7 @@
                     <div class="ibox-content" style="    padding: 20px !important;
 ">
                         {% import '::macros/base_search_macro.html.twig' as  search_macro %}
-                        {{ search_macro.search(filterForm,['title'],'application_ad_filter' ) }}
+                        {{ search_macro.search(filterForm,['title','public','adCategory'],'application_ad_filter' ) }}
                     </div>
                 </div>
             </div>

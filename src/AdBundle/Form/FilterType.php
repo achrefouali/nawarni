@@ -22,22 +22,43 @@ class FilterType extends AbstractType {
      * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
+          $category=$options['category'];
 
         $builder
 
 
             ->add('title', TextType::class, array('translation_domain' => 'ApplicationSettingBundle',
                                                   'label' => "Intitulé de l'annonce ",
+
                                                   'required' => false,
-                                                  'attr' => array('class' => 'form-control')
+                                                  'attr' => array('class' => 'form-control','placeholder'=>"Veuillez choisir l'intitulé de l'annonce")
             ))
 
-//            ->add('title', TextType::class, array('translation_domain' => 'ApplicationSettingBundle',
-//                'label' => "Intitulé de l'annonce ",
-//                'required' => false,
-//                'attr' => array('class' => 'form-control')
-//            ))
 
+            ->add('public', ChoiceType::class, array(
+                'translation_domain' => 'ApplicationTrainingBundle',
+                'label' => 'Statut',
+                'placeholder' => 'Tous',
+                'required'=> false,
+                'choices'  => array(
+                    'Désactivée' => '0',
+                    'Activée' => '1',
+                ),
+                'choice_label' => function ($item, $value){
+                    return $value;
+                },
+                'attr' => array('class' => 'form-control ','data-placeholder' => 'Tous')
+            ))
+
+            ->add('adCategory', ChoiceType::class, array(
+                'translation_domain' => 'ApplicationTrainingBundle',
+                'multiple'=>true,
+                'placeholder' => 'Veuillez choisir la catégorie des annonces',
+                'label' => "Categorie d'annonce ",
+                'required'=>false,
+                'choices'  => array_flip($category),
+                'attr' => array('class' => 'form-control chosen-select','data-placeholder' => 'Tous')
+            ))
 
 
 
@@ -51,6 +72,7 @@ class FilterType extends AbstractType {
      */
     public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults(array(
+            'category'=>[],
 
         ));
     }

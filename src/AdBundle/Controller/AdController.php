@@ -12,6 +12,8 @@ namespace AdBundle\Controller;
 use AdBundle\Entity\Ad;
 use AdBundle\Form\AdType;
 use AdBundle\Form\FilterType;
+use SettingBundle\Entity\AdCategory;
+use SettingBundle\Entity\ClaimCategory;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -47,7 +49,10 @@ class AdController extends Controller
     public function getFilterForm()
     {
         $filters = $this->getFilters();
-        return $this->createForm(FilterType::class, $filters, array());
+        $category=$this->getDoctrine()->getRepository(AdCategory::class)->findCategory();
+        return $this->createForm(FilterType::class, $filters, [
+            'category'=>$category,
+        ]);
     }
     /**
      * This function  get session filter

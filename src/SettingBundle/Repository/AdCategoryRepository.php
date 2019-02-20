@@ -63,4 +63,13 @@ class AdCategoryRepository extends \Doctrine\ORM\EntityRepository
 
         return ['total_result' => count($queryBuilder->getQuery()->getResult()) , 'result' => $result];
     }
+    public function findCategory(){
+        $queryBuilder = $this->createQueryBuilder('c');
+        $queryBuilder->select('c');
+        $result=[];
+        foreach($queryBuilder->getQuery()->getResult() as $item){
+            $result[$item->getId()]=$item->getTitle();
+        }
+        return $result;
+    }
 }

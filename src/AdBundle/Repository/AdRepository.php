@@ -35,6 +35,14 @@ class AdRepository extends \Doctrine\ORM\EntityRepository
             $queryBuilder->andWhere('c.title LIKE  :title')->setParameter('title', '%' . $filter['title'] . '%');
         }
 
+        if ((isset($filter['public']) && !is_null($filter['public']))) {
+
+            $queryBuilder->andWhere('c.public =  :public')->setParameter('public',$filter['public'] );
+        }
+
+        if ((isset($filter['adCategory']) && !empty($filter['adCategory']))) {
+            $queryBuilder->andWhere('c.adCategory  IN (:adCategory)')->setParameter('adCategory', $filter['adCategory']);
+        }
         $queryBuilder->orderBy('c.'.$sort, $orderBy);
 
         if($paginator == false){

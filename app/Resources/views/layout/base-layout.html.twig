@@ -24,6 +24,7 @@
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
         <link rel="stylesheet" href="{{ asset('css/bootstrap-datepicker.css') }}">
         <link rel="stylesheet" href="{{ asset('css/bootstrap-datepicker.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/chosen.css') }}">
 
         {#<link rel="stylesheet" href="{{ asset('css/select2.min.css') }}">#}
 
@@ -255,6 +256,7 @@ desired effect
     <script src="{{ asset('js/Chart.js') }}"></script>
     <script src="{{ asset('js/jquery.sparkline.js') }}"></script>
     <script src="{{ asset('js/jquery.knob.min.js') }}"></script>
+    <script src="{{ asset('js/chosen.jquery.js') }}"></script>
 
 
 
@@ -272,6 +274,7 @@ desired effect
             $("#dataConfirmOK").on("click", function () {
                 $(this).css("pointer-events", "none");
             });
+            $('.chosen-select').chosen();
 
 
 
