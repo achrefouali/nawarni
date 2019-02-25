@@ -2,6 +2,8 @@
 
 namespace AppBundle\Controller;
 
+use AdBundle\Entity\Ad;
+use ClaimBundle\Entity\Claim;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -21,8 +23,22 @@ class DashboardController extends Controller
      * @Route("/dashboard", name="admin_dashboard")
      * @return \Symfony\Component\HttpFoundation\Response
      */
+
     public function dashboardAction()
     {
-        return $this->render('default/dashboard.html.twig');
+         $widget =$this->getSettingService()->getAllWidget();
+         $areaChart=$this->getSettingService()->getDataAreaChart();
+
+
+        return $this->render('default/dashboard.html.twig',[
+            'adCount'=>$widget['adNumber'],
+            'claimNumber'=>$widget['claimNumber'],
+            'claimCategoryNumber'=>$widget['claimCategoryNumber'],
+            'adCategoryNumber'=>$widget['adCategoryNumber'],
+            'areaChart'=>$areaChart,
+        ]);
+    }
+    public function getSettingService(){
+        return $this->get('application_setting_service');
     }
 }

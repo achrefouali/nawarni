@@ -70,4 +70,9 @@ class claimCategoryRepository extends \Doctrine\ORM\EntityRepository
         }
         return $result;
     }
+    public function getCoutClaim(){
+        $queryBuilder = $this->createQueryBuilder('c');
+        $queryBuilder->select('c');
+        return sizeof($queryBuilder->getQuery()->getResult());
+    }
 }

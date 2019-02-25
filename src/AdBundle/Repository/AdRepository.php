@@ -86,4 +86,20 @@ class AdRepository extends \Doctrine\ORM\EntityRepository
 
          return ['total_result' => count($result) , 'result' => $result];
      }
+     public function getCoutAd(){
+         $queryBuilder = $this->createQueryBuilder('c');
+         $queryBuilder->select('c');
+         return sizeof($queryBuilder->getQuery()->getResult());
+     }
+     public function getAd(){
+         $queryBuilder = $this->createQueryBuilder('c');
+         $queryBuilder->select('c.date');
+         $result=["01"=>0, "02"=>0, "03"=>0, "04"=>0, "05"=>0, "06"=>0, "07"=>0, "08"=>0, "09"=>0, "10"=>0, "11"=>0, "12"=>0,];
+         $resultValues=[];
+        foreach($queryBuilder->getQuery()->getResult() as $item){
+            $result[$item['date']->format('m')]=$result[$item['date']->format('m')]+1;
+
+        }
+        return array_values($result);
+     }
 }

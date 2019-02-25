@@ -9,7 +9,11 @@
 namespace SettingBundle\Services;
 
 
+use AdBundle\Entity\Ad;
+use ClaimBundle\Entity\Claim;
 use Doctrine\ORM\EntityManager;
+use SettingBundle\Entity\AdCategory;
+use SettingBundle\Entity\ClaimCategory;
 
 class SettingService
 {
@@ -109,5 +113,19 @@ class SettingService
 
             );
 
+    }
+
+    public function getAllWidget(){
+        $adNumber = $this->em->getRepository(Ad::class)->getCoutAd();
+        $claimNumber = $this->em->getRepository(Claim::class)->getCoutClaim();
+        $adCategoryNumber = $this->em->getRepository(AdCategory::class)->getCoutClaim();
+        $claimCategoryNumber = $this->em->getRepository(ClaimCategory::class)->getCoutClaim();
+        return ['adNumber'=>$adNumber,'claimNumber'=>$claimNumber,'adCategoryNumber'=>$adCategoryNumber,'claimCategoryNumber'=>$claimCategoryNumber];
+    }
+
+    public function getDataAreaChart(){
+        $adNumber = $this->em->getRepository(Ad::class)->getAd();
+        $claimNumber = $this->em->getRepository(Claim::class)->getClaim();
+        return['ad'=>$adNumber,'claim'=>$claimNumber];
     }
 }
